@@ -5,6 +5,10 @@
 //  Created by beyondorigins on 26.01.2026.
 //
 
-func assessNewbie(x: Int32, y: Int32) {
+func assessAI(x: Int32, y: Int32) {
+    
+}
+
+func assessAAI(x: Int32, y: Int32) {
     
 }
