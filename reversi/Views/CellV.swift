@@ -23,7 +23,7 @@ struct CellView: View {
             }
         }
     var body: some View {
-        Button(action: pressButton) {
+        Button(action: {}) {
             ZStack {
                 Rectangle()
                     .fill(Color.white)

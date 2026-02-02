@@ -13,7 +13,4 @@ class CellViewModel: ObservableObject {
     @Published var row: Int = 0
     @Published var column: Int = 0
     
-    func pressCell() {
-        
-    }
 }
