@@ -79,9 +79,23 @@ struct Board {
         for i in 0..<sur.count {
             directions[i] = sur[i] - move
         }
-        for dir in directions {
-            
+        checkDirectionsLoop: for dir in directions {
+            var beam = move + dir
+            while (true) {
+                beam = beam + dir
+                guard let cell = getCellState(cell: beam) else {
+                    continue checkDirectionsLoop
+                }
+                if cell == .empty {
+                    continue checkDirectionsLoop
+                }
+                else if cell == player {
+                    break
+                }
+            }
+            affected.append(beam)
         }
+        if affected.count == 0 { return nil }
         return affected
     }
     

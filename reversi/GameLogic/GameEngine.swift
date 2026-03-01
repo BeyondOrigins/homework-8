@@ -15,7 +15,11 @@ class GameEngine {
         return true
     }
     
-    init(board: Board) {
-        self.board = board
+    func getAvailableMoves() -> [Position] {
+        
+    }
+    
+    init() {
+        
     }
 }
