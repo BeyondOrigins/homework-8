@@ -5,6 +5,17 @@
 //  Created by beyondorigins on 02.02.2026.
 //
 
-struct GameEngine {
+class GameEngine {
+    var board: Board
     
+    func isAvailableMove(move: Position) -> Bool {
+        guard let sur = board.getSurrounding(cell: move) else {
+            return false
+        }
+        return true
+    }
+    
+    init(board: Board) {
+        self.board = board
+    }
 }

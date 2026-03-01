@@ -1,0 +1,7 @@
+//
+//  AI.swift
+//  reversi
+//
+//  Created by beyondorigins on 02.02.2026.
+//
+

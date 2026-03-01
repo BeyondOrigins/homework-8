@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct CellView: View {
-    @State private var color: StateColor
-    @StateObject private var viewModel = CellViewModel()
+    @State private var color: CellState
     private var row: Int
     private var column: Int
     private var stoneColor: Color {
@@ -43,12 +42,10 @@ struct CellView: View {
             .aspectRatio(1, contentMode: .fit)
     }
 
-    init(color_: StateColor, row_: Int, column_: Int) {
+    init(color_: CellState, row_: Int, column_: Int) {
         color = color_
         row = row_
         column = column_
-        viewModel.row = row
-        viewModel.column = column
     }
 
 }
