@@ -62,12 +62,3 @@ func -(lhs: Position, rhs: Position) -> Position {
 func ==(lhs: Position, rhs: Position) -> Bool {
     return lhs.x == rhs.x && lhs.y == rhs.y
 }
-
-extension [Position] {
-    var normalized: [Position] {
-        
-        for i in 0..<self.count {
-            self[i] = self[i].normalized
-        }
-    }
-}

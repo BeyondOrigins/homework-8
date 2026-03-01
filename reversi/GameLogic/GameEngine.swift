@@ -7,6 +7,7 @@
 
 class GameEngine {
     var board: Board
+    var currentPlayer: Player
     
     func isAvailableMove(move: Position) -> Bool {
         guard let sur = board.getSurrounding(cell: move) else {
@@ -15,11 +16,16 @@ class GameEngine {
         return true
     }
     
-    func getAvailableMoves() -> [Position] {
+    func makeMove(move: Position) {
         
     }
     
-    init() {
-        
+    func getAvailableMoves(player: Player) -> [Position]? {
+        return nil
+    }
+    
+    init(board: Board, player: Player) {
+        self.board = board
+        self.currentPlayer = player
     }
 }
