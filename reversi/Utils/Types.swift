@@ -12,6 +12,10 @@ enum Player: Int {
     func getCellType() -> CellState {
         return self == .white ? .white : .black
     }
+    
+    var reversed: Player {
+        return self == .white ? .black : .white
+    }
 }
 
 enum CellState: Int {

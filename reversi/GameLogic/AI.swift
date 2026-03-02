@@ -16,14 +16,14 @@ class AI {
         return result
     }
     
-    static func evalMove(move: Position, board: Board, player: Player) -> Double{
+    static func evalMove(move: Position, board: Board, player: Player) -> Double { //evaluate the move
         let cell_state = player.getCellType()
         let affected_cells = board.getAffectedCells(move: move, player: player) ?? []
         var value = countWeightedSum(positions: affected_cells+[move])
         return value
     }
     
-    static func pickBestMove(player: Player, board: Board) -> Position? {
+    static func pickBestMove(player: Player, board: Board) -> Position? { // pick the best move based on counted weights
         guard let moves = board.getAvailableMoves(player: player) else {
             return nil
         }
@@ -32,7 +32,10 @@ class AI {
         return moves[index]
     }
     
-    static func pickBestMoveAdvanced(player: Player, board: Board) -> Position {
-        
+    /*
+     pick the best move based on counted weights and prediction of the enemy's move
+     */
+    static func pickBestMoveAdvanced(player: Player, board: Board) -> Position? {
+        return nil
     }
 }
