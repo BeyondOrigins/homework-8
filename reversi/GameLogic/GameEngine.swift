@@ -10,6 +10,9 @@ class GameEngine {
     var currentPlayer: Player
     
     func isAvailableMove(move: Position, player: Player) -> Bool {
+        if !board.validPosition(pos: move) {
+            return false
+        }
         let player_type = player.getCellType()
         guard let sur = board.getSurrounding(cell: move,
             searched_type: player_type.reversed) else {
@@ -18,8 +21,17 @@ class GameEngine {
         return true
     }
     
-    func makeMove(move: Position, player: Player) {
-        
+    func tryMakeMove(move: Position, player: Player) -> Bool{
+        if !isAvailableMove(move: move, player: player) {
+            return false
+        }
+        let player_type = player.getCellType()
+        let affected = board.getAffectedCells(move: move, player: player) ?? []
+        for affected_cell in affected {
+            board.setCellState(cell: affected_cell, state: player_type)
+        }
+        board.setCellState(cell: move, state: player.getCellType())
+        return true
     }
     
     func getAvailableMoves(player: Player) -> [Position]? {

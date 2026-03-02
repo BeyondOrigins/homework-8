@@ -46,7 +46,7 @@ struct Board {
         return board[cell.y][cell.x]
     }
     
-    func validPosition(pos: Position) -> Bool {
+    func validPosition(pos: Position) -> Bool { // check if position is valid
         if 0 <= pos.x && pos.x <= 7 && 0 <= pos.y && pos.y <= 7 {
             return true
         }
