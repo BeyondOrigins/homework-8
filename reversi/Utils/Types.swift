@@ -8,6 +8,10 @@
 enum Player: Int {
     case black = -1
     case white = 1
+    
+    func getCellType() -> CellState {
+        return self == .white ? .white : .black
+    }
 }
 
 enum CellState: Int {
@@ -17,6 +21,10 @@ enum CellState: Int {
     
     var reversed: CellState {
         return CellState(rawValue: self.rawValue * -1)!
+    }
+    
+    mutating func reverse() {
+        self = self.reversed
     }
     
     func isPlayersCell(player: Player) -> Bool {

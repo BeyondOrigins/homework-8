@@ -37,6 +37,10 @@ struct Board {
         board[4][3] = .black
     }
     
+    mutating func setCellState(cell: Position, state: CellState) {
+        self.board[cell.y][cell.x] = state
+    }
+    
     func getCellState(cell: Position) -> CellState! {
         if !validPosition(pos: cell) { return nil }
         return board[cell.y][cell.x]
@@ -49,8 +53,7 @@ struct Board {
         return false
     }
     
-    func getSurrounding(cell: Position) -> [Position]? {
-        let cell_state = getCellState(cell: cell)
+    func getSurrounding(cell: Position, searched_type cell_state: CellState) -> [Position]? { // get surroundning cells of enemy type
         let biases = [
             [-1, -1], [-1, 0], [0, -1],
             [1, 0], [0, 1], [1, 1], [1, -1],
@@ -72,9 +75,10 @@ struct Board {
         return surrounding
     }
     
-    func getAffectedCells(move: Position, player: CellState) -> [Position]? {
+    func getAffectedCells(move: Position, player: Player) -> [Position]? { // get cells which will be flipped by this move
+        let player_type: CellState = player.getCellType()
         var affected: [Position] = []
-        var sur = getSurrounding(cell: move)!
+        var sur = getSurrounding(cell: move, searched_type: player_type.reversed)!
         var directions: [Position] = []
         for i in 0..<sur.count {
             directions.append(sur[i] - move)
@@ -90,7 +94,7 @@ struct Board {
                 if cell == .empty {
                     continue checkDirectionsLoop
                 }
-                else if cell == player {
+                else if cell == player_type {
                     break
                 }
                 cur_affected.append(beam)
@@ -101,7 +105,7 @@ struct Board {
         return affected
     }
     
-    func countPoints() -> (Int, Int) {
+    func countPoints() -> (Int, Int) { // count current points
         var blackPoints = 0
         var whitePoints = 0
         for tx in 0...7 {
@@ -114,5 +118,9 @@ struct Board {
             }
         }
         return (blackPoints, whitePoints)
+    }
+    
+    mutating func flipCell(position: Position) {
+        self.board[position.y][position.x].reverse()
     }
 }
