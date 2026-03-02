@@ -8,14 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var gameState: GameState = .preGame
+    @State var currentPlayer: Player = .white
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        
     }
 }
 

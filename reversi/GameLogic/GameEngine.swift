@@ -7,7 +7,6 @@
 
 class GameEngine {
     var board: Board
-    var currentPlayer: Player
     
     func isAvailableMove(move: Position, player: Player) -> Bool {
         if !board.validPosition(pos: move) {
@@ -21,7 +20,7 @@ class GameEngine {
         return true
     }
     
-    func tryMakeMove(move: Position, player: Player) -> Bool{
+    func tryMakeMove(move: Position, player: Player) -> Bool {
         if !isAvailableMove(move: move, player: player) {
             return false
         }
@@ -52,8 +51,19 @@ class GameEngine {
         return moves
     }
     
+    func checkGameState() -> GameState {
+        // check for points
+        var (whitePoints, blackPoints): (Int, Int) = board.countPoints()
+        if whitePoints == 0 {
+            return .blackWon
+        }
+        else if blackPoints == 0 {
+            return .whiteWon
+        }
+        
+    }
+    
     init(board: Board, player: Player) {
         self.board = board
-        self.currentPlayer = player
     }
 }

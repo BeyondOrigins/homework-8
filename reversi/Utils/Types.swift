@@ -35,7 +35,16 @@ enum CellState: Int {
 enum GameMode {
     case pvp
     case ai
-    case aai
+    case ai_pro
+}
+
+enum GameState {
+    case preGame
+    case inGame
+    case draw
+    case whiteWon
+    case blackWon
+    case postGame
 }
 
 struct Position {

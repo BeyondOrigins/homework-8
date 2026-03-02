@@ -8,7 +8,7 @@
 struct Board {
     var board: [[CellState]]
     
-    static let ss_weights = [
+    static private let ss_weights: [[Double]] = [
         [0.8, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.8],
         [0.4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4],
         [0.4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4],
@@ -18,7 +18,8 @@ struct Board {
         [0.4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4],
         [0.8, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.8]
     ]
-    static let si_weights: [[Double]] = [
+    
+    static private let si_weights: [[Double]] = [
         [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
         [2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0],
         [2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0],
@@ -28,6 +29,14 @@ struct Board {
         [2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0],
         [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0]
     ]
+    
+    static func getSIWeight(cell: Position) -> Double {
+        return si_weights[cell.y][cell.x]
+    }
+    
+    static func getSSWeight(cell: Position) -> Double {
+        return ss_weights[cell.y][cell.x]
+    }
     
     init() {
         board = Array(repeating: Array(repeating: .empty, count: 8), count: 8)
