@@ -33,23 +33,7 @@ class GameEngine {
         return true
     }
     
-    func getAvailableMoves(player: Player) -> [Position]? {
-        var moves: [Position] = []
-        var player_cell_type: CellState = player.getCellType()
-        for x in 0...7 {
-            for y in 0...7 {
-                let cell = Position(x: x, y: y)
-                if board.getCellState(cell: cell) != .empty { continue }
-                guard let sur = board.getSurrounding(cell: cell,
-                    searched_type: player_cell_type.reversed) else {
-                    continue
-                }
-                moves.append(cell)
-            }
-        }
-        if moves.count == 0 { return nil }
-        return moves
-    }
+    
     
     func checkGameState() -> GameState {
         // check for points

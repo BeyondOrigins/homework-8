@@ -15,10 +15,24 @@ class AI {
         result += Board.getSSWeight(cell: positions[-1])
         return result
     }
-    static func evalMove(move: Position, board: Board, player: Player) {
+    
+    static func evalMove(move: Position, board: Board, player: Player) -> Double{
         let cell_state = player.getCellType()
         let affected_cells = board.getAffectedCells(move: move, player: player) ?? []
-        var value = countWeightedSum(positions: affected_cells)
+        var value = countWeightedSum(positions: affected_cells+[move])
+        return value
+    }
+    
+    static func pickBestMove(player: Player, board: Board) -> Position? {
+        guard let moves = board.getAvailableMoves(player: player) else {
+            return nil
+        }
+        let moves_values: [Double] = moves.map{ evalMove(move: $0, board: board, player: player) }
+        let index: Int = moves_values.firstIndex(of: moves_values.max()!)!
+        return moves[index]
+    }
+    
+    static func pickBestMoveAdvanced(player: Player, board: Board) -> Position {
         
     }
 }

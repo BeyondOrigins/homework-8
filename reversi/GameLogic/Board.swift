@@ -129,6 +129,24 @@ struct Board {
         return (blackPoints, whitePoints)
     }
     
+    func getAvailableMoves(player: Player) -> [Position]? { // just get available moves for the player
+        var moves: [Position] = []
+        var player_cell_type: CellState = player.getCellType()
+        for x in 0...7 {
+            for y in 0...7 {
+                let cell = Position(x: x, y: y)
+                if self.getCellState(cell: cell) != .empty { continue }
+                guard let sur = self.getSurrounding(cell: cell,
+                    searched_type: player_cell_type.reversed) else {
+                    continue
+                }
+                moves.append(cell)
+            }
+        }
+        if moves.count == 0 { return nil }
+        return moves
+    }
+    
     mutating func flipCell(position: Position) {
         self.board[position.y][position.x].reverse()
     }
