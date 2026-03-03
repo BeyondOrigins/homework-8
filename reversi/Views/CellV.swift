@@ -11,6 +11,7 @@ struct CellView: View {
     @State private var color: CellState
     private var row: Int
     private var column: Int
+    private var action: () -> Void
     private var stoneColor: Color {
             switch color {
             case .black:
@@ -22,7 +23,7 @@ struct CellView: View {
             }
         }
     var body: some View {
-        Button(action: {}) {
+        Button(action: action) {
             ZStack {
                 Rectangle()
                     .fill(Color.white)
@@ -42,14 +43,15 @@ struct CellView: View {
             .aspectRatio(1, contentMode: .fit)
     }
 
-    init(color: CellState, row: Int, column: Int) {
+    init(color: CellState, row: Int, column: Int, action: @escaping () -> Void) {
         self.color = color
         self.row = row
         self.column = column
+        self.action = action
     }
 
 }
 
 #Preview {
-    CellView(color: .black, row: 0, column: 0)
+    CellView(color: .black, row: 0, column: 0, action: {})
 }

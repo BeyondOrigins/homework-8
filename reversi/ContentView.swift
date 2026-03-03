@@ -70,10 +70,12 @@ struct ContentView: View {
                             ForEach(0..<8) { x in
                                 CellView(color:
                                     board.getCellState(cell: Position(x: x, y: y)),
-                                    row: y, column: x)
-                                .onTapGesture {
-                                    let move_result = GameEngine.tryMakeMove(move: Position(x: x, y: y), player: currentPlayer, board: board)
-                                }
+                                        row: y, column: x, action:
+                                    {
+                                        let _ = GameEngine.tryMakeMove(move: Position(x: x, y: y), player: currentPlayer, board: board)
+                                        print(y, x)
+                                    }
+                                )
                             }
                         }
                         .padding(0)
