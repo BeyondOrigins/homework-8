@@ -5,7 +5,7 @@
 //  Created by beyondorigins on 02.02.2026.
 //
 
-struct Board {
+class Board {
     var board: [[CellState]]
     
     static private let ss_weights: [[Double]] = [
@@ -30,14 +30,6 @@ struct Board {
         [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0]
     ]
     
-    static func getSIWeight(cell: Position) -> Double {
-        return si_weights[cell.y][cell.x]
-    }
-    
-    static func getSSWeight(cell: Position) -> Double {
-        return ss_weights[cell.y][cell.x]
-    }
-    
     init() {
         board = Array(repeating: Array(repeating: .empty, count: 8), count: 8)
         board[3][3] = .white
@@ -46,7 +38,15 @@ struct Board {
         board[4][3] = .black
     }
     
-    mutating func setCellState(cell: Position, state: CellState) {
+    static func getSIWeight(cell: Position) -> Double {
+        return si_weights[cell.y][cell.x]
+    }
+    
+    static func getSSWeight(cell: Position) -> Double {
+        return ss_weights[cell.y][cell.x]
+    }
+    
+    func setCellState(cell: Position, state: CellState) {
         self.board[cell.y][cell.x] = state
     }
     
@@ -147,7 +147,13 @@ struct Board {
         return moves
     }
     
-    mutating func flipCell(position: Position) {
+    func flipCell(position: Position) {
         self.board[position.y][position.x].reverse()
+    }
+    
+    func copy() -> Board {
+        var copy_object = Board()
+        copy_object.board = self.board
+        return copy_object
     }
 }

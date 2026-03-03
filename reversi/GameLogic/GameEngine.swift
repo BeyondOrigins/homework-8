@@ -6,10 +6,7 @@
 //
 
 class GameEngine {
-    var board: Board
-    
-    
-    func isAvailableMove(move: Position, player: Player) -> Bool {
+    static func isAvailableMove(move: Position, player: Player, board: Board) -> Bool {
         if board.getCellState(cell: move) != .empty || !board.validPosition(pos: move) {
             return false
         }
@@ -21,8 +18,8 @@ class GameEngine {
         return true
     }
     
-    func tryMakeMove(move: Position, player: Player) -> Bool {
-        if !isAvailableMove(move: move, player: player) {
+    static func tryMakeMove(move: Position, player: Player, board: Board) -> Bool {
+        if !isAvailableMove(move: move, player: player, board: board) {
             return false
         }
         let player_type = player.getCellType()
@@ -34,7 +31,7 @@ class GameEngine {
         return true
     }
     
-    func checkIfWin() -> GameState? { // returns winner if someone won, otherwise returns nil
+    static func checkIfWin(board: Board) -> GameState? { // returns winner if someone won, otherwise returns nil
         // check for points
         let (whitePoints, blackPoints): (Int, Int) = board.countPoints()
         if whitePoints == 0 {
@@ -51,9 +48,5 @@ class GameEngine {
             return whitePoints > blackPoints ? .whiteWon : .blackWon
         }
         return nil
-    }
-    
-    init(board: Board, player: Player) {
-        self.board = board
     }
 }
