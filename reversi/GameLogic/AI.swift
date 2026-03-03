@@ -39,22 +39,18 @@ class AI {
         }
         let enemy = player.reversed
         var moves_values: [Double] = moves.map{ evalMove(move: $0, board: board, player: player) }
-        /*
-         * TODO: implement calculation of the next enemy's move with respect
-         * to the premade player's move
-         */
         for i in 0..<moves.count {
             let move = moves[i]
             let board_tmp: Board = board.copy()
             let res: Bool = GameEngine.tryMakeMove(move: move, player: player, board: board_tmp)
             if !res { continue }
-            let enemy_moves = board_tmp.getAvailableMoves(player: enemy)
             guard let best_enemy_move = AI.pickBestMove(player: enemy, board: board_tmp) else {
                 continue
             }
             let best_move_value = AI.evalMove(move: best_enemy_move, board: board_tmp, player: enemy)
             moves_values[i] -= best_move_value
         }
-        return nil
+        let index: Int = moves_values.firstIndex(of: moves_values.max()!)!
+        return moves[index]
     }
 }
