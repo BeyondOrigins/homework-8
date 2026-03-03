@@ -9,24 +9,79 @@ import SwiftUI
 
 struct ContentView: View {
     @State var gameState: GameState = .preGame
+    @State var gameMode: GameMode = .pvp
     @State var currentPlayer: Player = .white
-    @State var board: Board = Board()
+    @StateObject var board: Board = Board()
     var body: some View {
         switch gameState {
         case .preGame:
-            VStack {
-                
+            VStack(spacing: 20) {
+                Text("Reversi")
+                    .bold()
+                    .font(.largeTitle)
+                VStack(spacing: 15) {
+                    Button (action: {
+                        self.gameState = .inGame
+                    })
+                    {
+                        HStack {
+                            Text("PvP")
+                                .font(.title2)
+                            Image(systemName: "person.fill")
+                        }
+                        
+                    }
+                    Button (action: {
+                        self.gameState = .inGame
+                        self.gameMode = .ai
+                    })
+                    {
+                        HStack {
+                            Text("Vs AI (noobie)")
+                                .font(.title2)
+                            Image(systemName: "cpu")
+                        }
+                        
+                    }
+                    Button (action: {
+                        self.gameState = .inGame
+                        self.gameMode = .ai_pro
+                    })
+                    {
+                        HStack {
+                            Text("Vs AI (pro)")
+                                .font(.title2)
+                            Image(systemName: "cpu.fill")
+                        }
+                        
+                    }
+                }
+                    
             }
         case .inGame:
-            <#code#>
-        case .draw:
-            <#code#>
-        case .whiteWon:
-            <#code#>
-        case .blackWon:
-            <#code#>
-        case .postGame:
-            <#code#>
+            VStack {
+                Text("White score: 2")
+                    .font(.title2)
+                Text("Black score: 2")
+                    .font(.title2)
+                VStack {
+                    ForEach(0..<8) { y in
+                        HStack {
+                            ForEach(0..<8) { x in
+                                CellView(color:
+                                    board.getCellState(cell: Position(x: x, y: y)),
+                                    row: y, column: x)
+                                .onTapGesture {
+                                    let move_result = GameEngine.tryMakeMove(move: Position(x: x, y: y), player: currentPlayer, board: board)
+                                }
+                            }
+                        }
+                        .padding(0)
+                    }
+                }
+                .padding(.horizontal, 20)
+            }
+        default: VStack{}
         }
     }
 }

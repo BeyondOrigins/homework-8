@@ -42,14 +42,14 @@ struct CellView: View {
             .aspectRatio(1, contentMode: .fit)
     }
 
-    init(color_: CellState, row_: Int, column_: Int) {
-        color = color_
-        row = row_
-        column = column_
+    init(color: CellState, row: Int, column: Int) {
+        self.color = color
+        self.row = row
+        self.column = column
     }
 
 }
 
 #Preview {
-    CellView(color_: .black, row_: 0, column_: 0)
+    CellView(color: .black, row: 0, column: 0)
 }

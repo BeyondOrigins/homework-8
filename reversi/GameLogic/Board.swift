@@ -5,8 +5,12 @@
 //  Created by beyondorigins on 02.02.2026.
 //
 
-class Board {
-    var board: [[CellState]]
+import SwiftUI
+import Combine
+
+class Board: ObservableObject {
+    
+    @Published var board: [[CellState]]
     
     static private let ss_weights: [[Double]] = [
         [0.8, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.8],
