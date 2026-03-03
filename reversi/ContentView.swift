@@ -69,11 +69,14 @@ struct ContentView: View {
                         HStack {
                             ForEach(0..<8) { x in
                                 CellView(color:
-                                    board.getCellState(cell: Position(x: x, y: y)),
+                                    board.board[y][x],
                                         row: y, column: x, action:
                                     {
-                                        let _ = GameEngine.tryMakeMove(move: Position(x: x, y: y), player: currentPlayer, board: board)
-                                        print(y, x)
+                                        print(board.board[y][x])
+                                        if GameEngine.tryMakeMove(move: Position(x: x, y: y), player: currentPlayer, board: board) {
+                                            currentPlayer = currentPlayer.reversed
+                                        }
+                                        print(board.board[y][x])
                                     }
                                 )
                             }
