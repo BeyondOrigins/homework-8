@@ -66,8 +66,8 @@ struct Position {
     }
     
     var normalized: Position {
-        var new_x = x == 0 ? 0 : x/abs(x)
-        var new_y = y == 0 ? 0 : y/abs(y)
+        let new_x = x == 0 ? 0 : x/abs(x)
+        let new_y = y == 0 ? 0 : y/abs(y)
         return Position(x: new_x, y: new_y)
     }
 }

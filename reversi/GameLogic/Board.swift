@@ -87,7 +87,7 @@ struct Board {
     func getAffectedCells(move: Position, player: Player) -> [Position]? { // get cells which will be flipped by this move
         let player_type: CellState = player.getCellType()
         var affected: [Position] = []
-        var sur = getSurrounding(cell: move, searched_type: player_type.reversed)!
+        let sur = getSurrounding(cell: move, searched_type: player_type.reversed)!
         var directions: [Position] = []
         for i in 0..<sur.count {
             directions.append(sur[i] - move)
@@ -131,12 +131,12 @@ struct Board {
     
     func getAvailableMoves(player: Player) -> [Position]? { // just get available moves for the player
         var moves: [Position] = []
-        var player_cell_type: CellState = player.getCellType()
+        let player_cell_type: CellState = player.getCellType()
         for x in 0...7 {
             for y in 0...7 {
                 let cell = Position(x: x, y: y)
                 if self.getCellState(cell: cell) != .empty { continue }
-                guard let sur = self.getSurrounding(cell: cell,
+                guard let _ = self.getSurrounding(cell: cell,
                     searched_type: player_cell_type.reversed) else {
                     continue
                 }

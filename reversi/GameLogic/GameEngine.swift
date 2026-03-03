@@ -8,12 +8,13 @@
 class GameEngine {
     var board: Board
     
+    
     func isAvailableMove(move: Position, player: Player) -> Bool {
-        if !board.validPosition(pos: move) {
+        if board.getCellState(cell: move) != .empty || !board.validPosition(pos: move) {
             return false
         }
         let player_type = player.getCellType()
-        guard let sur = board.getSurrounding(cell: move,
+        guard let _ = board.getSurrounding(cell: move,
             searched_type: player_type.reversed) else {
             return false
         }
@@ -33,18 +34,23 @@ class GameEngine {
         return true
     }
     
-    
-    
-    func checkGameState() -> GameState {
+    func checkIfWin() -> GameState? { // returns winner if someone won, otherwise returns nil
         // check for points
-        var (whitePoints, blackPoints): (Int, Int) = board.countPoints()
+        let (whitePoints, blackPoints): (Int, Int) = board.countPoints()
         if whitePoints == 0 {
             return .blackWon
         }
         else if blackPoints == 0 {
             return .whiteWon
         }
-        
+        guard let _ = board.getAvailableMoves(player: .white),
+                let _ = board.getAvailableMoves(player: .black) else {
+            if whitePoints == blackPoints {
+                return .draw
+            }
+            return whitePoints > blackPoints ? .whiteWon : .blackWon
+        }
+        return nil
     }
     
     init(board: Board, player: Player) {
